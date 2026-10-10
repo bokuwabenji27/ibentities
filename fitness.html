@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f4ed">
+  <meta name="description" content="My personal fitness journey — training, progress, and reflections.">
+  <title>Fitness Journey — iBentities</title>
+
+  <style>
+    :root {
+      --paper: #f7f4ed;
+      --deep: #eee8dc;
+      --ink: #39382f;
+      --muted: #817d70;
+      --line: #dfd8ca;
+      --accent: #797b60;
+      --card: #f0ece3;
+      --width: 700px;
+    }
+
+    body.dark {
+      color-scheme: dark;
+      --paper: #252720;
+      --deep: #303229;
+      --ink: #eee9dc;
+      --muted: #b1ad9e;
+      --line: #48483d;
+      --accent: #c0c4a1;
+      --card: #2d3027;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.85 Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: var(--line);
+      text-underline-offset: 4px;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      width: min(var(--width), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav a:not(.logo) {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 88px 0 55px;
+    }
+
+    .eyebrow, .number {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-weight: 400;
+    }
+
+    h1, h2, .entry-title {
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: -0.045em;
+    }
+
+    h1 {
+      margin: 12px 0 20px;
+      font-size: clamp(43px, 8vw, 66px);
+      line-height: 1.1;
+    }
+
+    h1 em {
+      color: var(--accent);
+    }
+
+    .intro {
+      max-width: 480px;
+      color: var(--muted);
+    }
+
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      object-fit: cover;
+      display: block;
+      margin-top: 30px;
+      border-radius: 3px;
+      background: var(--deep);
+    }
+
+    section {
+      padding: 32px 0 42px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 27px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .principle {
+      padding: 17px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .principle h3 {
+      margin: 0 0 7px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .principle p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .entry {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .entry:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .entry-date {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .entry-title {
+      margin: 5px 0;
+      font-size: 21px;
+    }
+
+    .entry p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .note {
+      padding: 22px;
+      background: var(--deep);
+      border-radius: 3px;
+    }
+
+    .note p {
+      margin: 0;
+    }
+
+    footer {
+      padding: 24px 0 35px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        padding-top: 65px;
+      }
+
+      .principles {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        aspect-ratio: 4 / 3;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="logo" href="index.html">
+        iB<span>entities</span>
+      </a>
+      <a href="index.html">← Back to home</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <p class="eyebrow">A personal practice · 01</p>
+      <h1>Stronger,<br><em>slowly.</em></h1>
+
+      <p class="intro">
+        A record of learning to train, building strength, and
+        making movement a part of my life. Not a race towards
+        perfection, but a practice of showing up.
+      </p>
+
+      <!-- Optional: add your own fitness photo here later. -->
+      <!--
+      <img
+        class="hero-image"
+        src="images/fitness.jpg"
+        alt="A moment from my fitness journey"
+      >
+      -->
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>The approach</h2>
+        <span class="number">01 / PRACTICE</span>
+      </div>
+
+      <p class="muted">
+        I'm learning that progress doesn't require doing everything
+        at once. For now, I want to focus on the fundamentals,
+        build consistency, and get a little better over time.
+      </p>
+
+      <div class="principles">
+        <div class="principle">
+          <h3>01. Show up</h3>
+          <p>Consistency before intensity. Build a routine I can sustain.</p>
+        </div>
+
+        <div class="principle">
+          <h3>02. Get stronger</h3>
+          <p>Learn the movements, practise good technique, and progress gradually.</p>
+        </div>
+
+        <div class="principle">
+          <h3>03. Be patient</h3>
+          <p>Respect recovery and recognise progress beyond appearance.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Training notes</h2>
+        <span class="number">02 / LOG</span>
+      </div>
+
+      <p class="muted">
+        A place to record workouts, exercises, weights, and lessons learned.
+      </p>
+
+      <!-- Duplicate an entry below whenever you want to add a new one. -->
+
+      <article class="entry">
+        <time class="entry-date">TRAINING NOTE</time>
+        <h3 class="entry-title">Learning the basics</h3>
+        <p>
+          Focus: practising the main movements, recording workouts,
+          and learning how to progress without rushing.
+        </p>
+      </article>
+
+      <article class="entry">
+        <time class="entry-date">NEXT MILESTONE</time>
+        <h3 class="entry-title">Progress over perfection</h3>
+        <p>
+          Record a personal best, a consistency milestone, or
+          something new that I've learned.
+        </p>
+      </article>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Reflections</h2>
+        <span class="number">03 / NOTES</span>
+      </div>
+
+      <div class="note">
+        <p>
+          <strong>A reminder to myself</strong>
+        </p>
+        <p class="muted">
+          My body is not a project that must be completed before
+          I can enjoy my life. I can work towards change while
+          appreciating where I am today.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <a href="index.html">← Return to iBentities</a>
+    <p>© <span id="year"></span> iBentities · A work in progress.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
