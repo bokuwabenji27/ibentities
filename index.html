@@ -123,6 +123,36 @@
   font-size: 16px;
 }
 
+.playlist-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.player {
+  width: min(320px, 55%);
+}
+
+.player select {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+}
+
+.player audio {
+  display: block;
+  width: 100%;
+  height: 32px;
+}
+
   </style>
 </head>
 
@@ -144,13 +174,47 @@
 </div>
 
 
-    <div class="player">
-      <audio controls preload="metadata" loop>
-        <source src="music/BGM082.mp3" type="audio/mpeg">
-        Your browser does not support audio playback.
-      </audio>
-    </div>
+    
+<div class="player">
+  <label class="playlist-label" for="playlist">
+    Choose a song
+  </label>
+
+  <select id="playlist" aria-label="Choose a song">
+    <option value="music/BGM082.mp3">BGM082</option>
+    <option value="music/BGM001.mp3">BGM001</option>
+    <option value="music/BGM005.mp3">BGM005</option>
+    <option value="music/BGM007.mp3">BGM007</option>
+    <option value="music/BGM008.mp3">BGM008</option>
+    <option value="music/BGM060.mp3">BGM060</option>
+  </select>
+
+  <audio id="audio-player" controls preload="metadata" loop>
+    <source src="music/BGM082.mp3" type="audio/mpeg">
+    Your browser does not support audio playback.
+  </audio>
+</div>
+
   </header>
+  
+<script>
+  const playlist = document.getElementById("playlist");
+  const audioPlayer = document.getElementById("audio-player");
+
+  playlist.addEventListener("change", function () {
+    const wasPlaying = !audioPlayer.paused;
+
+    audioPlayer.src = playlist.value;
+    audioPlayer.load();
+
+    if (wasPlaying) {
+      audioPlayer.play().catch(function () {
+        // The visitor can press Play if playback is blocked.
+      });
+    }
+  });
+</script>
+
 </body>
 
 </html>
