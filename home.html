@@ -1,0 +1,943 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#f7f4ed">
+  <meta name="description"
+        content="iBentities — a personal archive of languages, creativity, learning, and life.">
+
+  <title>iBentities — A life, in progress</title>
+
+  <style>
+    /* ========================================
+       1. DESIGN TOKENS
+       Change these values to customise the site.
+       ======================================== */
+
+    :root {
+      color-scheme: light;
+
+      --paper: #f7f4ed;
+      --paper-deep: #eee8dc;
+      --ink: #39382f;
+      --muted: #817d70;
+      --line: #dfd8ca;
+      --accent: #797b60;
+      --card: #f0ece3;
+
+      --width: 760px;
+      --gutter: 24px;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
+    }
+
+    body.dark {
+      color-scheme: dark;
+
+      --paper: #252720;
+      --paper-deep: #303229;
+      --ink: #eee9dc;
+      --muted: #b1ad9e;
+      --line: #48483d;
+      --accent: #c0c4a1;
+      --card: #2d3027;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: var(--line);
+      text-underline-offset: 4px;
+      transition: color 160ms ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+      text-decoration-color: currentColor;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+    }
+
+    ::selection {
+      background: var(--paper-deep);
+      color: var(--ink);
+    }
+
+    .container {
+      width: min(var(--width), calc(100% - 2 * var(--gutter)));
+      margin-inline: auto;
+    }
+
+    /* ========================================
+       2. HEADER
+       ======================================== */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 66px;
+    }
+
+    .wordmark {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      text-decoration: none;
+    }
+
+    .wordmark span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+    }
+
+    .theme-toggle {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      background: var(--paper-deep);
+    }
+
+    /* ========================================
+       3. HERO
+       ======================================== */
+
+    .hero {
+      padding-top: 104px;
+      padding-bottom: 76px;
+    }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 620px;
+      margin: 0 0 24px;
+      font-family: var(--serif);
+      font-size: clamp(42px, 8vw, 68px);
+      font-weight: 400;
+      letter-spacing: -0.065em;
+      line-height: 1.12;
+    }
+
+    .hero h1 em {
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .hero-copy {
+      max-width: 470px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .hero-meta span::before {
+      content: "✳";
+      margin-right: 8px;
+      color: var(--accent);
+    }
+
+    /* ========================================
+       4. SECTION SYSTEM
+       ======================================== */
+
+    .section {
+      padding: 36px 0 46px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-number {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 400;
+      letter-spacing: -0.045em;
+      line-height: 1.4;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .section-intro {
+      max-width: 480px;
+      margin: -10px 0 26px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ========================================
+       5. ABOUT
+       ======================================== */
+
+    .about-copy {
+      max-width: 590px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .about-copy p {
+      margin: 0 0 16px;
+    }
+
+    .about-copy strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.about-photo {
+  margin: 0;
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+
+.about-photo figcaption {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+@media (max-width: 560px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .about-photo {
+    max-width: 260px;
+  }
+}
+
+    /* ========================================
+       6. PURSUITS
+       ======================================== */
+
+    .pursuits {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pursuit {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      min-height: 116px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: var(--card);
+      text-decoration: none;
+    }
+
+    .pursuit-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 16px;
+    }
+
+    .pursuit h3 {
+      margin: 1px 0 5px;
+    }
+
+    .pursuit p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .pursuit:hover {
+      border-color: var(--accent);
+    }
+
+    /* ========================================
+       7. LANGUAGES
+       ======================================== */
+
+    .language-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .language {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .language-name {
+      font-size: 13px;
+    }
+
+    .language-note {
+      color: var(--muted);
+      font-size: 11px;
+      text-align: right;
+    }
+
+    /* ========================================
+       8. JOURNAL
+       ======================================== */
+
+    .journal-entry {
+      display: grid;
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 22px;
+      padding: 19px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .journal-entry:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .journal-date {
+      padding-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .journal-title {
+      margin: 0 0 5px;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+    }
+
+    .journal-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .empty-note {
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ========================================
+       9. SAVE POINT
+       ======================================== */
+
+    .save-point {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: var(--card);
+    }
+
+    .save-point p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .save-symbol {
+      display: grid;
+      place-items: center;
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 20px;
+    }
+
+    /* ========================================
+       10. FOOTER
+       ======================================== */
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 25px 0 38px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+    }
+
+    /* ========================================
+       11. MOBILE
+       ======================================== */
+
+    @media (max-width: 560px) {
+      :root {
+        --gutter: 20px;
+      }
+
+      .header-inner {
+        min-height: 60px;
+      }
+
+      .nav {
+        gap: 13px;
+      }
+
+      .nav a {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-top: 76px;
+        padding-bottom: 58px;
+      }
+
+      .pursuits {
+        grid-template-columns: 1fr;
+      }
+
+      .pursuit {
+        min-height: 92px;
+      }
+
+      .journal-entry {
+        grid-template-columns: 76px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .save-point {
+        padding: 17px;
+      }
+
+      .site-footer {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+/* Music section */
+.music-section {
+  padding: 32px 0 42px;
+  border-top: 1px solid var(--line);
+}
+
+.music-intro {
+  color: var(--muted);
+  margin: 0 0 20px;
+  max-width: 460px;
+}
+
+.music-card {
+  padding: 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.music-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.music-info h3 {
+  margin: 8px 0 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.music-info p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.music-card audio {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="#home" aria-label="iBentities home">
+        iB<span>entities</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#pursuits">Pursuits</a>
+        <a href="#journal">Journal</a>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch to dark theme"
+          title="Toggle theme"
+        >◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+
+    <!-- INTRODUCTION -->
+
+    <section class="hero" style="border-top: 0;">
+      <p class="eyebrow">A personal archive · Malaysia</p>
+
+      <h1>
+        A life,<br>
+        <em>in progress.</em>
+      </h1>
+
+      <p class="hero-copy">
+        Hello, I'm iBentities. This is my little corner of the
+        internet — a collection of things I'm learning, making,
+        exploring, and returning to.
+      </p>
+
+      <div class="hero-meta">
+        <span>Curiosity over perfection</span>
+        <span>A work in progress</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+
+    <section class="section" id="about">
+      <div class="section-heading">
+        <h2>A little about me</h2>
+        <span class="section-number">01 / ABOUT</span>
+      </div>
+
+      <div class="about-copy">
+        <p>
+         
+
+<section class="section" id="about">
+  <div class="section-heading">
+    <h2>A little about me</h2>
+    <span class="section-number">01 / ABOUT</span>
+  </div>
+
+  <div class="about-layout">
+    <figure class="about-photo">
+      <img
+        src="images/ibentities.jpg"
+        alt="Portrait of iBentities"
+        loading="lazy"
+      />
+      <figcaption>A little piece of me.</figcaption>
+    </figure>
+
+    <div class="about-copy">
+      <p>
+        I'm interested in the many ways a person can grow.
+        Learning a language, making music, getting stronger,
+        creating something, or understanding someone a little
+        better — each is a different way of being present in life.
+      </p>
+
+      <p>
+        <strong>iBentities</strong> is a place for those different
+        pursuits to coexist. Not everything needs to become a
+        project, and not every interest needs to become an
+        achievement.
+      </p>
+
+      <p>
+        Think of this as a reference shelf rather than a timeline:
+        a place to revisit ideas, follow small curiosities, and
+        keep track of what matters to me.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- PURSUITS -->
+
+    <section class="section" id="pursuits">
+      <div class="section-heading">
+        <h2>Things I pursue</h2>
+        <span class="section-number">02 / INDEX</span>
+      </div>
+
+      <p class="section-intro">
+        A collection of interests, in no particular order.
+        Some are long-standing; others are still taking shape.
+      </p>
+
+      <div class="pursuits">
+
+        <a class="pursuit" href="#languages">
+          <span class="pursuit-icon" aria-hidden="true">文</span>
+          <span>
+            <h3>Languages</h3>
+            <p>Words, cultures, and new ways of seeing.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="#journal">
+          <span class="pursuit-icon" aria-hidden="true">♫</span>
+          <span>
+            <h3>Music & sound</h3>
+            <p>Learning, listening, and making things.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="#journal">
+          <span class="pursuit-icon" aria-hidden="true">✳</span>
+          <span>
+            <h3>Art & photography</h3>
+            <p>Noticing things worth keeping.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="fitness.html">
+          <span class="pursuit-icon" aria-hidden="true">↗</span>
+          <span>
+            <h3>Movement & fitness</h3>
+            <p>Strength, consistency, and being in my body.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="#journal">
+          <span class="pursuit-icon" aria-hidden="true">◎</span>
+          <span>
+            <h3>Counselling & people</h3>
+            <p>Identity, relationships, and understanding.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="#journal">
+          <span class="pursuit-icon" aria-hidden="true">⌘</span>
+          <span>
+            <h3>Code & making</h3>
+            <p>Building small things for the internet.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="#journal">
+          <span class="pursuit-icon" aria-hidden="true">⌁</span>
+          <span>
+            <h3>Travel & discovery</h3>
+            <p>Places, everyday details, and unfamiliar things.</p>
+          </span>
+        </a>
+
+        <a class="pursuit" href="#journal">
+          <span class="pursuit-icon" aria-hidden="true">✎</span>
+          <span>
+            <h3>Notes & reflections</h3>
+            <p>Thoughts that deserve a little more space.</p>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- LANGUAGES -->
+
+    <section class="section" id="languages">
+      <div class="section-heading">
+        <h2>Languages</h2>
+        <span class="section-number">03 / WORDS</span>
+      </div>
+
+      <p class="section-intro">
+        Small steps toward understanding more of the world.
+      </p>
+
+      <div class="language-list">
+        <div class="language">
+          <span class="language-name">Malay</span>
+          <span class="language-note">Bahasa Melayu</span>
+        </div>
+
+        <div class="language">
+          <span class="language-name">Japanese</span>
+          <span class="language-note">日本語</span>
+        </div>
+
+        <div class="language">
+          <span class="language-name">German</span>
+          <span class="language-note">Deutsch</span>
+        </div>
+
+        <div class="language">
+          <span class="language-name">Filipino</span>
+          <span class="language-note">Filipino / Tagalog</span>
+        </div>
+
+        <div class="language">
+          <span class="language-name">Thai</span>
+          <span class="language-note">ภาษาไทย</span>
+        </div>
+      </div>
+    </section>
+
+        
+<section id="music" class="music-section">
+  <div class="section-heading">
+    <h2>Sounds of My Life</h2>
+    <span class="muted">Now playing, if you wish</span>
+  </div>
+
+  <p class="music-intro">
+    Little recordings, melodies, and sounds that mean something to me.
+  </p>
+
+  <div class="music-card">
+    <div class="music-info">
+      <span class="music-label">LISTEN · 01</span>
+      <h3>Background Music</h3>
+      <p>From Nu: Carnival</p>
+    </div>
+
+    <audio controls preload="metadata" loop>
+      <source src="music/BGM082.mp3" type="audio/mpeg">
+      Your browser does not support audio playback.
+    </audio>
+  </div>
+</section>
+
+    <!-- JOURNAL -->
+
+    <section class="section" id="journal">
+      <div class="section-heading">
+        <h2>From the journal</h2>
+        <span class="section-number">04 / NOTES</span>
+      </div>
+
+      <p class="section-intro">
+        Occasional notes from the process. The archive comes first;
+        the timeline comes second.
+      </p>
+
+      <!-- Replace these sample entries with your own notes. -->
+
+      <article class="journal-entry">
+        <time class="journal-date" datetime="2026-10-10">
+          10 OCT 2026
+        </time>
+        <div>
+          <h3 class="journal-title">Making a little corner of the internet</h3>
+          <p class="journal-description">
+            Starting with a blank page, a few ideas, and the
+            willingness to learn how to build something myself.
+          </p>
+        </div>
+      </article>
+
+      <article class="journal-entry">
+        <time class="journal-date" datetime="2026-10-01">
+          OCT 2026
+        </time>
+        <div>
+          <h3 class="journal-title">An unfinished collection</h3>
+          <p class="journal-description">
+            A reminder that interests can coexist without
+            needing to lead to one single destination.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- SMALL PERSONAL DETAIL -->
+
+    <section class="section">
+      <div class="save-point">
+        <div>
+          <h3>A small save point</h3>
+          <p>
+            Pause for a moment. You're allowed to be a work in progress.
+          </p>
+        </div>
+
+        <span class="save-symbol" aria-hidden="true">✧</span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container site-footer">
+    <span>
+      © <span id="year"></span> iBentities · Made slowly, with care.
+    </span>
+
+    <div class="footer-links">
+      <a href="#home">Back to top ↑</a>
+      <a href="mailto:YOUR-EMAIL@example.com">Say hello</a>
+    </div>
+  </footer>
+
+  <script>
+    // Update the copyright year automatically.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Toggle between warm light and dark themes.
+    const themeButton = document.getElementById("theme-toggle");
+
+    themeButton.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark");
+
+      themeButton.textContent = isDark ? "☼" : "◐";
+      themeButton.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light theme" : "Switch to dark theme"
+      );
+      document.querySelector('meta[name="theme-color"]')
+        .setAttribute("content", isDark ? "#252720" : "#f7f4ed");
+    });
+  </script>
+</body>
+</html>
