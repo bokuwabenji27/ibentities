@@ -281,6 +281,44 @@
       font-weight: 500;
     }
 
+.about-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.about-photo {
+  margin: 0;
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+
+.about-photo figcaption {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+@media (max-width: 560px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .about-photo {
+    max-width: 260px;
+  }
+}
+
     /* ========================================
        6. PURSUITS
        ======================================== */
@@ -577,6 +615,7 @@
       <div class="about-copy">
         <p>
          
+
 <section class="section" id="about">
   <div class="section-heading">
     <h2>A little about me</h2>
@@ -616,6 +655,7 @@
     </div>
   </div>
 </section>
+
 
     <!-- PURSUITS -->
 
