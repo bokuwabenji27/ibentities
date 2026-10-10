@@ -555,6 +555,51 @@
         transition-duration: 0.01ms !important;
       }
     }
+    
+/* Music section */
+.music-section {
+  padding: 32px 0 42px;
+  border-top: 1px solid var(--line);
+}
+
+.music-intro {
+  color: var(--muted);
+  margin: 0 0 20px;
+  max-width: 460px;
+}
+
+.music-card {
+  padding: 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.music-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.music-info h3 {
+  margin: 8px 0 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.music-info p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.music-card audio {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+
   </style>
 </head>
 
@@ -778,6 +823,31 @@
         </div>
       </div>
     </section>
+
+        
+<section id="music" class="music-section">
+  <div class="section-heading">
+    <h2>Sounds of My Life</h2>
+    <span class="muted">Now playing, if you wish</span>
+  </div>
+
+  <p class="music-intro">
+    Little recordings, melodies, and sounds that mean something to me.
+  </p>
+
+  <div class="music-card">
+    <div class="music-info">
+      <span class="music-label">LISTEN · 01</span>
+      <h3>Background Music</h3>
+      <p>From Nu: Carnival</p>
+    </div>
+
+    <audio controls preload="metadata">
+      <source src="music/bgm082.mp3" type="audio/mpeg">
+      Your browser does not support audio playback.
+    </audio>
+  </div>
+</section>
 
     <!-- JOURNAL -->
 
