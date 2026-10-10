@@ -28,15 +28,23 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .music-bar {
-      min-height: 100px;
-      padding: 12px 20px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
+
+.music-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 90px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 1000;
+}
+
 
     .music-brand {
       min-width: 0;
@@ -66,19 +74,24 @@
       height: 38px;
     }
 
-    .page-frame {
-      display: block;
-      width: 100%;
-      height: calc(100vh - 100px);
-      border: 0;
-      background: var(--paper);
-    }
+    
+.page-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 90px);
+  border: 0;
+  background: var(--paper);
+}
+
 
     @media (max-width: 520px) {
-      .music-bar {
-        padding: 12px;
-        gap: 10px;
-      }
+      
+.music-bar {
+  min-height: 100px;
+  padding: 12px;
+  gap: 10px;
+}
+
 
       .music-brand a {
         font-size: 16px;
@@ -92,14 +105,25 @@
         width: 55%;
       }
 
-      .page-frame {
-        height: calc(100vh - 100px);
-      }
+
+.page-frame {
+  height: calc(100vh - 100px);
+}
+
     }
   </style>
 </head>
 
 <body>
+
+<body>
+  <iframe
+    class="page-frame"
+    name="site-content"
+    src="home.html"
+    title="iBentities website content">
+  </iframe>
+
   <header class="music-bar">
     <div class="music-brand">
       <a href="home.html" target="site-content">iBentities</a>
@@ -113,12 +137,6 @@
       </audio>
     </div>
   </header>
-
-  <iframe
-    class="page-frame"
-    name="site-content"
-    src="home.html"
-    title="iBentities website content">
-  </iframe>
 </body>
+
 </html>
