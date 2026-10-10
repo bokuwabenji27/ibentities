@@ -29,21 +29,23 @@
     }
 
 
+
 .music-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  min-height: 90px;
-  padding: 12px 20px;
+  min-height: 64px;
+  padding: 8px 16px;
   border-top: 1px solid var(--line);
   background: var(--paper);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 12px;
   z-index: 1000;
 }
+
 
 
     .music-brand {
@@ -75,21 +77,23 @@
     }
 
     
+
 .page-frame {
   display: block;
   width: 100%;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 64px);
   border: 0;
   background: var(--paper);
 }
 
 
+
     @media (max-width: 520px) {
       
 .music-bar {
-  min-height: 100px;
-  padding: 12px;
-  gap: 10px;
+  min-height: 64px;
+  padding: 6px 10px;
+  gap: 8px;
 }
 
 
@@ -107,10 +111,18 @@
 
 
 .page-frame {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 64px);
 }
 
     }
+    
+.song-title {
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: 16px;
+}
+
   </style>
 </head>
 
@@ -125,10 +137,12 @@
   </iframe>
 
   <header class="music-bar">
-    <div class="music-brand">
-      <a href="home.html" target="site-content">iBentities</a>
-      <p>Current Mood Song I Listen To</p>
-    </div>
+
+<div class="music-brand">
+  <span class="song-title">BGM082</span>
+  <p>Current Mood Song I Listen To</p>
+</div>
+
 
     <div class="player">
       <audio controls preload="metadata" loop>
